@@ -1,7 +1,9 @@
 
 
 import paramiko
+import os
 from stat import S_ISDIR, S_ISREG
+import sys
 
 
 def listdir_r(sftp, remotedir):
@@ -13,23 +15,22 @@ def listdir_r(sftp, remotedir):
         elif S_ISREG(mode):
             print(remotepath)
 
-
-router_ip = "192.168.1.177"
-router_username = "yossiambalo"
-router_password = "1123"
+host_ip = sys.argv[1]
+username = sys.argv[2]
+password = sys.argv[3]
+path = sys.argv[4]
 
 ssh = paramiko.SSHClient()
-
 # Load SSH host keys.
 ssh.load_system_host_keys()
 # Add SSH host key automatically if needed.
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 # Connect to router using username/password authentication.
-ssh.connect(router_ip,
-            username=router_username,
-            password=router_password,
+ssh.connect(host_ip,
+            username=username,
+            password=password,
             look_for_keys=False )
 
 sftp_client = ssh.open_sftp()
 
-listdir_r(sftp_client,"Documents")
+listdir_r(sftp_client,path)
