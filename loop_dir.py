@@ -11,7 +11,7 @@ def listdir_rec(sftp, remotedir):
         remotepath = remotedir + "/" + entry.filename
         mode = entry.st_mode
         if S_ISDIR(mode):
-            listdir_r(sftp, remotepath)
+            listdir_rec(sftp, remotepath)
         elif S_ISREG(mode):
             print(remotepath)
 
@@ -34,3 +34,4 @@ ssh.connect(host_ip,
 sftp_client = ssh.open_sftp()
 
 listdir_rec(sftp_client,dir_path)
+ssh.close();
