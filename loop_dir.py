@@ -4,21 +4,26 @@ import paramiko
 import os
 from stat import S_ISDIR, S_ISREG
 import sys
-
+from pathlib import Path
 
 def listdir_rec(sftp, remotedir):
+    if OS_type == "mac":
+       file_sep="/"
+    elif OS_type == "win":
+        file_sep="\\"
     for entry in sftp.listdir_attr(remotedir):
-        remotepath = remotedir + "/" + entry.filename
+        remotepath = remotedir + file_sep + entry.filename
         mode = entry.st_mode
         if S_ISDIR(mode):
             listdir_rec(sftp, remotepath)
         elif S_ISREG(mode):
             print(remotepath)
-
-host_ip = sys.argv[1]
-username = sys.argv[2]
-password = sys.argv[3]
-dir_path = sys.argv[4]
+file_sep=""
+OS_type = sys.argv[1]
+host_ip = sys.argv[2]
+username = sys.argv[3]
+password = sys.argv[4]
+dir_path = sys.argv[5]
 
 ssh = paramiko.SSHClient()
 # Load SSH host keys.
