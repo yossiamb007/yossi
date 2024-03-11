@@ -26,7 +26,6 @@ password = sys.argv[4]
 dir_path = sys.argv[5]
 
 ssh = paramiko.SSHClient()
-#ssh.load_system_host_keys()
 # Add SSH host key automatically if needed.
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 # Connect to router using username/password authentication.
