@@ -10,11 +10,18 @@ call venv\Scripts\activate
 REM Install requirements
 pip install -r requirements.txt
 
+REM Get the current date in YYYY-MM-DD format
+for /f "tokens=2 delims==" %%i in ('wmic os get localdatetime /value') do set datetime=%%i
+set allure-results=%datetime:~0,4%-%datetime:~4,2%-%datetime:~6,2%
+
+REM Create a folder with the current date as the name
+mkdir %allure-results%
+
 REM Run pytest with Allure report generation
-pytest --alluredir allure-results
+pytest --alluredir %allure-results%
 
 REM Serve the Allure report
-allure serve allure-results
+allure serve %allure-results%
 
 REM Deactivate the virtual environment
 deactivate
