@@ -11,7 +11,7 @@ REM Install requirements
 pip install -r requirements.txt
 
 REM Run pytest with Allure report generation
-pytest -m happyflow --alluredir allure-results
+pytest --alluredir allure-results
 
 REM Serve the Allure report
 allure serve allure-results
