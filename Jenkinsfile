@@ -1,5 +1,1 @@
- stage('build') {
-    steps {
-        sh 'python hello_python.py'
-    }
-}
+allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
